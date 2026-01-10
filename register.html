@@ -1,8 +1,8 @@
-<button id="register">Register ck3r protocol</button>
+<button id="register">Register ckr protocol</button>
 
 <script>
 document.getElementById("register").onclick = () => {
-  console.log("Attempting to register web+ck3r protocol...");
+  console.log("Attempting to register web+ckr protocol...");
 
   // 1. Check if API exists
   if (!navigator.registerProtocolHandler) {
@@ -12,7 +12,7 @@ document.getElementById("register").onclick = () => {
   }
 
   // 2. Validate scheme
-  const scheme = "web+ck3r";
+  const scheme = "web+ckr";
   if (!/^web\+[a-z]+$/.test(scheme)) {
     console.error("Scheme invalid:", scheme);
     alert("Scheme is invalid. Must start with 'web+' and only lowercase letters.");
@@ -37,7 +37,7 @@ document.getElementById("register").onclick = () => {
     navigator.registerProtocolHandler(
       scheme,
       handlerUrl,
-      "ck3r protocol"
+      "ckr protocol"
     );
     console.log("Registration attempted. Browser should show prompt if allowed.");
     alert("Registration attempted. Check browser settings or prompt.");
