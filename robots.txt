@@ -1,0 +1,12 @@
+# ____  _____ ____ ____  _____ _____ 
+#/ ___|| ____/ ___|  _ \| ____|_   _|
+#\___ \|  _|| |   | |_) |  _|   | |  
+# ___) | |__| |___|  _ <| |___  | |  
+#|____/|_____\____|_| \_\_____| |_|  
+# Congrats on looking here!
+# FLAG{} or HINT... todo
+User-agent: *
+# fake page
+Disallow: /private/super-secret-login-dont-look/
+# block all SEO
+Disallow: /
