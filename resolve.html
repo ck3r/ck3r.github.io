@@ -1,4 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ck3r resolver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: monospace;
+    background: #0b0b0b;
+    color: #00ff9c;
+    padding: 2rem;
+  }
+  .box {
+    border: 1px solid #00ff9c;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .error { color: #ff5555; }
+  .muted { color: #888; }
+</style>
+</head>
+<body>
+
+<h1>ck3r:// resolver</h1>
+
+<div id="output" class="box"></div>
+
 <script>
-  const uri = new URL(location.href).searchParams.get("uri");
-  document.body.textContent = uri;
+(() => {
+  const out = document.getElementById("output");
+  const params = new URLSearchParams(location.search);
+  const raw = params.get("uri");
+
+  if (!raw) {
+    out.innerHTML = `<span class="error">No URI provided.</span>`;
+    return;
+  }
+
+  const decoded = decodeURIComponent(raw);
+
+  if (!decoded.startsWith("web+ck3r:")) {
+    out.innerHTML = `<span class="error">Invalid scheme.</span>`;
+    return;
+  }
+
+  // Strip scheme
+  const payload = decoded.slice("web+ck3r:".length);
+
+  // Split payload
+  const [head, query] = payload.split("?");
+  const [command, mode] = head.split("@");
+
+  // Load state
+  const currentStage = localStorage.getItem("ck3r_stage") || "none";
+
+  // Debug output (intentional)
+  out.innerHTML = `
+    <div class="muted">raw</div>${decoded}<br><br>
+
+    <div class="muted">command</div>${command || "(none)"}<br>
+    <div class="muted">mode</div>${mode || "(default)"}<br>
+    <div class="muted">query</div>${query || "(none)"}<br><br>
+
+    <div class="muted">stored stage</div>${currentStage}<br><br>
+  `;
+
+  // --- Routing / stages ---
+
+  if (command === "init") {
+    localStorage.setItem("ck3r_stage", "init");
+    out.innerHTML += `<p>Stage 0 initialized.</p>
+      <p>Proceed: <code>web+ck3r:auth@ctf</code></p>`;
+    return;
+  }
+
+  if (command === "auth" && mode === "ctf") {
+    if (currentStage !== "init") {
+      out.innerHTML += `<p class="error">Initialization required.</p>`;
+      return;
+    }
+
+    localStorage.setItem("ck3r_stage", "auth");
+    out.innerHTML += `<p>Authorization vector accepted.</p>
+      <p>Proceed: <code>web+ck3r:flag@stage1</code></p>`;
+    return;
+  }
+
+  if (command === "flag") {
+    if (currentStage !== "auth") {
+      out.innerHTML += `<p class="error">Unauthorized flag access.</p>`;
+      return;
+    }
+
+    localStorage.setItem("ck3r_stage", "flag");
+    out.innerHTML += `<p>Flag channel opened.</p>
+      <p><strong>FLAG{uri_authority_is_a_lie}</strong></p>`;
+    return;
+  }
+
+  out.innerHTML += `<p class="error">Unknown command.</p>`;
+})();
 </script>
+
+</body>
+</html>
