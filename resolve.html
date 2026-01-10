@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>ck3r resolver</title>
+<title>ckr resolver</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body {
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<h1>ck3r:// resolver</h1>
+<h1>ckr:// resolver</h1>
 
 <div id="output" class="box"></div>
 
@@ -39,20 +39,20 @@
 
   const decoded = decodeURIComponent(raw);
 
-  if (!decoded.startsWith("web+ck3r:")) {
+  if (!decoded.startsWith("web+ckr:")) {
     out.innerHTML = `<span class="error">Invalid scheme.</span>`;
     return;
   }
 
   // Strip scheme
-  const payload = decoded.slice("web+ck3r:".length);
+  const payload = decoded.slice("web+ckr:".length);
 
   // Split payload
   const [head, query] = payload.split("?");
   const [command, mode] = head.split("@");
 
   // Load state
-  const currentStage = localStorage.getItem("ck3r_stage") || "none";
+  const currentStage = localStorage.getItem("ckr_stage") || "none";
 
   // Debug output (intentional)
   out.innerHTML = `
@@ -68,9 +68,9 @@
   // --- Routing / stages ---
 
   if (command === "init") {
-    localStorage.setItem("ck3r_stage", "init");
+    localStorage.setItem("ckr_stage", "init");
     out.innerHTML += `<p>Stage 0 initialized.</p>
-      <p>Proceed: <code>web+ck3r:auth@ctf</code></p>`;
+      <p>Proceed: <code>web+ckr:auth@ctf</code></p>`;
     return;
   }
 
@@ -80,9 +80,9 @@
       return;
     }
 
-    localStorage.setItem("ck3r_stage", "auth");
+    localStorage.setItem("ckr_stage", "auth");
     out.innerHTML += `<p>Authorization vector accepted.</p>
-      <p>Proceed: <code>web+ck3r:flag@stage1</code></p>`;
+      <p>Proceed: <code>web+ckr:flag@stage1</code></p>`;
     return;
   }
 
@@ -92,7 +92,7 @@
       return;
     }
 
-    localStorage.setItem("ck3r_stage", "flag");
+    localStorage.setItem("ckr_stage", "flag");
     out.innerHTML += `<p>Flag channel opened.</p>
       <p><strong>FLAG{uri_authority_is_a_lie}</strong></p>`;
     return;
