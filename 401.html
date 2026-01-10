@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Unauthorized</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: #1b1c1e;
+    color: #e6e6e6;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  main {
+    max-width: 560px;
+    padding: 72px 40px;
+  }
+
+  .glyph {
+    font-size: 40px;
+    opacity: 0.6;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: 21px;
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.55;
+    opacity: 0.7;
+    margin: 0 0 12px;
+  }
+
+  .status {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 36px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid #3a3b3d;
+    background: transparent;
+    color: #e6e6e6;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #2a2b2e;
+  }
+</style>
+</head>
+<body>
+  <main>
+    <div class="glyph">⊘</div>
+    <h1>401</h1>
+    <p>
+      Oops! You are not authorized. Hint: Browsers sanitize authority.
+    </p>
+    <p class="status">SERVER RECEIVED: anonymous@ck3r.dev</p>
+    <button onclick="window.location.href='/';">Go back home</button>
+  </main>
+</body>
+</html>
