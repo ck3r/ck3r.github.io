@@ -68,5 +68,14 @@
     <p class="status">PAGE_NOT_FOUND</p>
     <button onclick="window.location.href='ck3r.dev';">Go back home</button>
   </main>
+  <script>
+  const messages = [
+    "Looks like this page took a vacation.",
+    "404: Not found, not lost.",
+    "You found the secret 404 page!"
+  ];
+  document.querySelector('p').textContent = messages[Math.floor(Math.random()*messages.length)];
+</script>
+
 </body>
 </html>
