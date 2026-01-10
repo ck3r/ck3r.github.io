@@ -1,0 +1,11 @@
+<button id="register">Register ck3r protocol</button>
+
+<script>
+document.getElementById("register").onclick = () => {
+  navigator.registerProtocolHandler(
+    "web+ck3r",
+    "https://ck3r.dev/resolve.html?uri=%s",
+    "ck3r protocol"
+  );
+};
+</script>
