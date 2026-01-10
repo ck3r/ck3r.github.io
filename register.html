@@ -1,14 +1,49 @@
-<button id="register">Register ck3r protocol</button> <br><br>
-
-<a href="about://settings/handlers">Check browser entry</a>
+<button id="register">Register ck3r protocol</button>
 
 <script>
 document.getElementById("register").onclick = () => {
-  navigator.registerProtocolHandler(
-    "web+ck3r",
-    "https://ck3r.dev/resolve.html?uri=%s",
-    "ck3r protocol"
-  );
-    alert("If your browser supports it, a prompt should appear now.");
+  console.log("Attempting to register web+ck3r protocol...");
+
+  // 1. Check if API exists
+  if (!navigator.registerProtocolHandler) {
+    console.error("navigator.registerProtocolHandler is undefined. Browser may not support it.");
+    alert("Your browser does not support protocol handler registration.");
+    return;
+  }
+
+  // 2. Validate scheme
+  const scheme = "web+ck3r";
+  if (!/^web\+[a-z]+$/.test(scheme)) {
+    console.error("Scheme invalid:", scheme);
+    alert("Scheme is invalid. Must start with 'web+' and only lowercase letters.");
+    return;
+  }
+
+  // 3. Validate handler URL
+  const handlerUrl = "https://ck3r.dev/resolve.html?uri=%s";
+  if (!/%s/.test(handlerUrl)) {
+    console.error("Handler URL must contain %s to receive the URI:", handlerUrl);
+    alert("Handler URL must contain %s.");
+    return;
+  }
+  if (!handlerUrl.startsWith("https://")) {
+    console.error("Handler URL must be HTTPS:", handlerUrl);
+    alert("Handler URL must use HTTPS.");
+    return;
+  }
+
+  // 4. Try registration
+  try {
+    navigator.registerProtocolHandler(
+      scheme,
+      handlerUrl,
+      "ck3r protocol"
+    );
+    console.log("Registration attempted. Browser should show prompt if allowed.");
+    alert("Registration attempted. Check browser settings or prompt.");
+  } catch (e) {
+    console.error("Registration threw an error:", e);
+    alert("Registration failed: " + e.message);
+  }
 };
 </script>
