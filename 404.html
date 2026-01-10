@@ -56,6 +56,10 @@
   button:hover {
     background: #2a2b2e;
   }
+
+  pre { color: #00ccff; }
+  .hint { color: #ffaa00; margin-top: 2em; }
+  a { color: #00ccff; }
 </style>
 </head>
 <body>
@@ -67,6 +71,42 @@
     </p>
     <p class="status">PAGE_NOT_FOUND</p>
     <button onclick="window.location.href='/';">Go back home</button>
+
+<p>You attempted to authenticate using a URL authority:</p>
+
+<pre>https://h@ck3r.dev</pre>
+
+<p>Your browser sanitized the request.</p>
+
+<pre>SERVER RECEIVED:
+scheme: https
+host: ck3r.dev
+user: (none)</pre>
+
+<p>The authority component was stripped <em>client-side</em>.</p>
+
+<div class="hint">
+Hint: Browsers are not protocol-faithful clients.<br>
+Try a real one.
+</div>
+
+<p>
+<a href="data:text/html,
+<!doctype html>
+<html>
+<body style='background:black;color:lime;font-family:monospace;padding:30px'>
+<h2>DATA STAGE</h2>
+<p>No server. No headers. Just bytes.</p>
+<pre>
+curl -u h:ck3r https://ck3r.dev
+</pre>
+<p>The authority was never the problem.</p>
+</body>
+</html>
+">
+[ open data stage ]
+</a>
+</p>
   </main>
   <script>
   const messages = [
