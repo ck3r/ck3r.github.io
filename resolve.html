@@ -67,6 +67,19 @@
 
   // --- Routing / stages ---
 
+  const KONAMI =
+  "⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️";
+
+if (payload === KONAMI) {
+  localStorage.setItem("ckr_stage", "konami");
+  out.innerHTML += `
+    <p>↑↑↓↓←→←→BA</p>
+    <p><strong>KONAMI CODE ACCEPTED</strong></p>
+    <p>Proceed: <code>web+ckr:flag@secret</code></p>
+  `;
+  return;
+}
+
   if (command === "init") {
     localStorage.setItem("ckr_stage", "init");
     out.innerHTML += `<p>Stage 0 initialized.</p>
