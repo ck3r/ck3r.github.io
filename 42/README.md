@@ -1,1 +1,1 @@
-# Philosophy & guiding principles behind this site
+# Philosophy & Guiding Principles
