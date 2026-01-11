@@ -1,4 +1,11 @@
-<button id="register">Register ckr protocol</button>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register web+ckr</title>
+</head>
+<body>
+  <button id="register">Register ckr protocol</button>
 
 <script>
 document.getElementById("register").onclick = () => {
@@ -35,9 +42,9 @@ document.getElementById("register").onclick = () => {
   // 4. Try registration
   try {
     navigator.registerProtocolHandler(
-      scheme,
-      handlerUrl,
-      "ckr protocol"
+        "web+ckr",
+        `${location.origin}/resolve.html?uri=%s`,
+        "CKR Protocol"
     );
     console.log("Registration attempted. Browser should show prompt if allowed.");
     alert("Registration attempted. Check browser settings or prompt.");
@@ -47,3 +54,5 @@ document.getElementById("register").onclick = () => {
   }
 };
 </script>
+  </body>
+</html>
